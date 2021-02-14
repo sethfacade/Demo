@@ -11,10 +11,12 @@ const getAllFunds = funds => ({
 
 // THUNK //
 
-export const fetchAllFunds = () => {
+export const fetchAllFunds = permission => {
   return async dispatch => {
     try {
-      const funds = await axios.get('/api/funds')
+      const funds = await axios.get('/api/funds', {
+        params: {permission}
+      })
       dispatch(getAllFunds(funds.data))
     } catch (error) {
       console.error('Unable to get all funds', error)

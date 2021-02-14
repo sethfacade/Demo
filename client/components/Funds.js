@@ -4,12 +4,16 @@ import {fetchAllFunds} from '../store/fund'
 
 class Funds extends React.Component {
   componentDidMount() {
-    this.props.fetchFunds()
+    let permission
+    if (this.props.location.access) {
+      permission = this.props.location.access.permissions
+    }
+    this.props.fetchFunds(permission)
   }
 
   render() {
     const funds = this.props.funds || []
-    console.log(this.props)
+
     return (
       <div>
         <h3>Accessible Funds</h3>
@@ -28,7 +32,7 @@ class Funds extends React.Component {
                 <tr key={fund.id}>
                   <td>{fund.name}</td>
                   <td>{fund.type}</td>
-                  <td>{fund.inception_date}</td>
+                  <td>{fund.inceptionDate}</td>
                   <td>{fund.description}</td>
                 </tr>
               )
@@ -48,7 +52,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFunds: () => dispatch(fetchAllFunds())
+    fetchFunds: permission => dispatch(fetchAllFunds(permission))
   }
 }
 
