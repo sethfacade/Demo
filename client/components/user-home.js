@@ -1,34 +1,57 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {fetchAllClients} from '../store/client'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
-
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+class UserHome extends React.Component {
+  componentDidMount() {
+    this.props.fetchClients()
+  }
+  render() {
+    const clients = this.props.clients || []
+    console.log(clients)
+    return (
+      <div>
+        <h3>Welcome {this.props.email}</h3>
+        <h3>All Clients</h3>
+        {clients.map(client => {
+          return (
+            <div key={client.id}>
+              <Link
+                to={{
+                  pathname: '/funds',
+                  access: {
+                    permissions: client.permission
+                  }
+                }}
+              >
+                {client.name}
+              </Link>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
 }
 
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = state => {
   return {
+    clients: state.client,
     email: state.user.email
   }
 }
 
-export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchClients: () => dispatch(fetchAllClients())
+  }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserHome)
