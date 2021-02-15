@@ -1,17 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCashFlow, updateCashThunk} from '../store/cashFlow'
-// import {fetchInvestments} from '../store/investment'
-import {fetchAllClients} from '../store/client'
-import {fetchAllFunds} from '../store/fund'
-import {
-  ClientNameDropDown,
-  InvestmentTypeDropDown,
-  InvestmentNameDropDown
-} from './index'
+import {Button} from 'react-bootstrap'
 import {UpdateForm} from './UpdateForm'
 
-class CashFlowForm extends React.Component {
+class Test extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -43,7 +36,6 @@ class CashFlowForm extends React.Component {
       if (investmentId !== 'select') {
         await this.props.getCashFlow(investmentId)
       }
-
       const cashFlow = this.props.cashFlow.return / 100
       currentValue = valWithoutReturn * (1 + cashFlow / 100)
       this.setState({currentValue})
@@ -85,20 +77,22 @@ class CashFlowForm extends React.Component {
     this.setState({updatedValue})
   }
 
-  componentDidMount() {
-    this.props.getClients()
-    this.props.getFunds()
-  }
-
   render() {
+    const investments = this.props.investments.investments
     return (
       <div>
-        <div className="parent-container">
-          <ClientNameDropDown />
-          <InvestmentTypeDropDown />
-          <InvestmentNameDropDown
-            handleInvestmentNameChange={this.handleInvestmentNameChange}
-          />
+        <div>
+          <label htmlFor="investmentName">Investment Name: </label>
+          <select onChange={this.handleInvestmentNameChange}>
+            <option value="select">Investment Name</option>
+            {investments.map(investment => {
+              return (
+                <option key={investment.id} value={investment.id}>
+                  {investment.name}
+                </option>
+              )
+            })}
+          </select>
         </div>
         <div className="form-container">
           <UpdateForm
@@ -108,38 +102,69 @@ class CashFlowForm extends React.Component {
             updatedValue={this.state.updatedValue}
             date={this.state.date}
             calculate={this.calculate}
-            value={this.state.value}
+            value={this.value}
           />
         </div>
+        {/* <form>
+          <label htmlFor="currentValue">Current Value</label>
+          <input
+            name="currentValue"
+            type="number"
+            value={this.state.currentValue}
+            readOnly
+          />
+          <label htmlFor="updatedValue">Updated Value</label>
+          <input
+            name="updatedValue"
+            type="number"
+            value={this.state.updatedValue}
+            readOnly
+          />
+        </form>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+          <label htmlFor="date">Date</label>
+          <input
+            name="date"
+            type="date"
+            value={this.state.date}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="value">Value</label>
+          <input
+            name="value"
+            type="number"
+            value={this.state.value}
+            placeholder="Place in %"
+            onChange={this.handleChange}
+          />
+          <Button type="submit" variant="outline-success">
+            Submit
+          </Button>
+        </form>
+
+        <Button
+          onClick={this.calculate}
+          type="button"
+          variant="outline-primary"
+        >
+          Calculate
+        </Button> */}
       </div>
     )
   }
 }
-
 const mapStateToProps = state => {
   return {
     cashFlow: state.cashFlow,
     investments: state.investments
-    // client: state.client,
-    // funds: state.funds.allFunds,
-    // filteredFunds: state.funds.filteredFunds,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getFunds: () => dispatch(fetchAllFunds()),
-
-    // getFilteredFunds: (filteredFunds) =>
-    //   dispatch(getFilteredFunds(filteredFunds)),
-
-    getClients: () => dispatch(fetchAllClients()),
-
-    // getInvestment: (clientId, fundId) =>
-    //   dispatch(fetchInvestments(clientId, fundId)),
-    updateCashThunk: updatedInfo => dispatch(updateCashThunk(updatedInfo)),
-    getCashFlow: investmentId => dispatch(fetchCashFlow(investmentId))
+    getCashFlow: investmentId => dispatch(fetchCashFlow(investmentId)),
+    updateCashThunk: updatedInfo => dispatch(updateCashThunk(updatedInfo))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CashFlowForm)
+export default connect(mapStateToProps, mapDispatchToProps)(Test)

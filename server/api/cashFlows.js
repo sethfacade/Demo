@@ -7,10 +7,23 @@ router.get('/:investmentId', async (req, res, next) => {
     const {investmentId} = req.params
     const cashFlows = await CashFlow.findOne({
       where: {
-        investment_id: investmentId
+        investmentId: investmentId
       }
     })
     res.json(cashFlows)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// PUT ROUTE //
+router.put('/', async (req, res, next) => {
+  try {
+    const {date, newValue, cashFlowId} = req.body
+    const cashFlow = await CashFlow.findOne({where: {id: cashFlowId}})
+
+    const update = await cashFlow.update({date, return: newValue})
+    res.json(update)
   } catch (error) {
     next(error)
   }

@@ -76,11 +76,6 @@ const mapDispatchToProps = dispatch => {
 
     getClients: () => dispatch(fetchAllClients()),
 
-    // getInvestment: (clientId, fundId) =>
-    //   dispatch(fetchInvestments(clientId, fundId)),
-
-    // getCashFlow: (investmentId) => dispatch(fetchCashFlow(investmentId)),
-
     getSelectedIds: clientId => dispatch(getSelectedIds(clientId))
   }
 }

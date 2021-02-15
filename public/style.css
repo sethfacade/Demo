@@ -19,3 +19,14 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.parent-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}

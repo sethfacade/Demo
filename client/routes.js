@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, Funds, CashFlowForm} from './components'
+import {UserHome, Funds, CashFlowForm} from './components'
 import {me} from './store'
 
 /**
@@ -16,13 +16,9 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors */}
-        {/* <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} /> */}
-        <Route exact path="/home" component={UserHome} />
+        <Route exact path="/" component={UserHome} />
         <Route exact path="/funds" component={Funds} />
         <Route exact path="/updateCashFlow" component={CashFlowForm} />
-        {/* Displays our Login component as a fallback */}
       </Switch>
     )
   }
@@ -55,6 +51,6 @@ export default withRouter(connect(mapState, mapDispatch)(Routes))
  * PROP TYPES
  */
 Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  loadInitialData: PropTypes.func.isRequired
+  // isLoggedIn: PropTypes.bool.isRequired,
 }

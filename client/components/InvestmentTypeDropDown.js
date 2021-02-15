@@ -31,9 +31,7 @@ function InvestmentTypeDropDown(props) {
 }
 const mapStateToProps = state => {
   return {
-    cashFlows: state.cashFlows,
     investments: state.investments,
-    client: state.client,
     funds: state.funds.allFunds,
     filteredFunds: state.funds.filteredFunds
   }
@@ -41,15 +39,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getFunds: () => dispatch(fetchAllFunds()),
+    // getFunds: () => dispatch(fetchAllFunds()),
 
-    getFilteredFunds: filteredFunds =>
-      dispatch(getFilteredFunds(filteredFunds)),
+    // getFilteredFunds: filteredFunds =>
+    //   dispatch(getFilteredFunds(filteredFunds)),
 
-    getUniqueFundTypes: uniqueTypes =>
-      dispatch(getUniqueFundTypes(uniqueTypes)),
-
-    getClients: () => dispatch(fetchAllClients()),
+    // getClients: () => dispatch(fetchAllClients()),
 
     getInvestment: (clientId, fundId) =>
       dispatch(fetchInvestments(clientId, fundId)),

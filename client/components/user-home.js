@@ -23,7 +23,7 @@ class UserHome extends React.Component {
     const clients = this.props.clients || []
     return (
       <div>
-        <h3>Welcome {this.props.email}</h3>
+        <h3>Welcome</h3>
         <h3>All Clients</h3>
         {clients.map(client => {
           return (
@@ -44,8 +44,7 @@ class UserHome extends React.Component {
  */
 const mapStateToProps = state => {
   return {
-    clients: state.client,
-    email: state.user.email
+    clients: state.client
   }
 }
 

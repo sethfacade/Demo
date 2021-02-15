@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchMaskedFunds} from '../store/fund'
+import {Table} from 'react-bootstrap'
 
 class Funds extends React.Component {
   componentDidMount() {
@@ -13,7 +14,7 @@ class Funds extends React.Component {
     return (
       <div>
         <h3>Accessible Funds</h3>
-        <table>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>Fund Name</th>
@@ -34,7 +35,7 @@ class Funds extends React.Component {
               )
             })}
           </tbody>
-        </table>
+        </Table>
       </div>
     )
   }

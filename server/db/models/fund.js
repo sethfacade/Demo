@@ -16,10 +16,15 @@ const Fund = db.define(
       }
     },
     type: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     inceptionDate: {
-      type: Sequelize.DATEONLY
+      type: Sequelize.DATEONLY,
+      defaultValue: Sequelize.NOW
     },
     description: {
       type: Sequelize.TEXT

@@ -9,7 +9,8 @@ const CashFlow = db.define(
       primaryKey: true
     },
     date: {
-      type: Sequelize.DATEONLY
+      type: Sequelize.DATEONLY,
+      defaultValue: Sequelize.NOW
     },
     return: {
       type: Sequelize.INTEGER
@@ -17,5 +18,14 @@ const CashFlow = db.define(
   },
   {underscored: true}
 )
+
+// NUMBERS ARE * 100 FOR BETTER ACCURACY TO ACCOUNT FOR FLOATING POINT PRECIONS IN JS //
+CashFlow.beforeCreate(cashFlow => {
+  cashFlow.return = Math.round(+cashFlow.return * 100)
+})
+
+CashFlow.beforeUpdate(cashFlow => {
+  cashFlow.return = Math.round(+cashFlow.return * 100)
+})
 
 module.exports = CashFlow
