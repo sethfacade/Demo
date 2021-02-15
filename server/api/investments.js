@@ -7,8 +7,8 @@ router.get('/clientId/:clientId/fundId/:fundId', async (req, res, next) => {
     const {clientId, fundId} = req.params
     const funds = await Investment.findAll({
       where: {
-        fund_id: fundId,
-        client_id: clientId
+        fundId: fundId,
+        clientId: clientId
       }
     })
     res.json(funds)

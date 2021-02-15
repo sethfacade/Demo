@@ -1,14 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchAllFunds} from '../store/fund'
+import {fetchMaskedFunds} from '../store/fund'
 
 class Funds extends React.Component {
   componentDidMount() {
-    let permission
-    if (this.props.location.access) {
-      permission = this.props.location.access.permissions
-    }
-    this.props.fetchFunds(permission)
+    this.props.fetchMaskedFunds()
   }
 
   render() {
@@ -46,13 +42,13 @@ class Funds extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    funds: state.funds
+    funds: state.funds.maskedFunds
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFunds: permission => dispatch(fetchAllFunds(permission))
+    fetchMaskedFunds: () => dispatch(fetchMaskedFunds())
   }
 }
 

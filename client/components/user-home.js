@@ -1,18 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchAllClients} from '../store/client'
-import {Link} from 'react-router-dom'
+import {auth} from '../store'
 
 /**
  * COMPONENT
  */
 class UserHome extends React.Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
   componentDidMount() {
     this.props.fetchClients()
   }
+  handleClick(client) {
+    this.props.getPermission(client)
+  }
+
   render() {
     const clients = this.props.clients || []
-    console.log(clients)
     return (
       <div>
         <h3>Welcome {this.props.email}</h3>
@@ -20,16 +28,9 @@ class UserHome extends React.Component {
         {clients.map(client => {
           return (
             <div key={client.id}>
-              <Link
-                to={{
-                  pathname: '/funds',
-                  access: {
-                    permissions: client.permission
-                  }
-                }}
-              >
+              <a href="/funds" onClick={() => this.handleClick(client.name)}>
                 {client.name}
-              </Link>
+              </a>
             </div>
           )
         })}
@@ -50,7 +51,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchClients: () => dispatch(fetchAllClients())
+    fetchClients: () => dispatch(fetchAllClients()),
+    getPermission: client => dispatch(auth(client))
   }
 }
 

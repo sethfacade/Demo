@@ -3,6 +3,7 @@ import axios from 'axios'
 // ACTION TYPES //
 
 const GET_INVESTMENTS = 'GET_INVESTMENTS'
+const SELECTED_IDS = 'SELECTED_IDS'
 
 // ACTION CREATORS //
 const getInvestments = investments => ({
@@ -10,12 +11,17 @@ const getInvestments = investments => ({
   investments
 })
 
+export const getSelectedIds = selected => ({
+  type: SELECTED_IDS,
+  selected
+})
+
 // THUNK //
 export const fetchInvestments = (clientId, fundId) => {
   return async dispatch => {
     try {
       const investments = await axios.get(
-        `/api/clientId/${clientId}/fundId/${fundId}`
+        `/api/investments/clientId/${clientId}/fundId/${fundId}`
       )
       dispatch(getInvestments(investments.data))
     } catch (error) {
@@ -25,13 +31,15 @@ export const fetchInvestments = (clientId, fundId) => {
 }
 
 // Initial State //
-const initialState = []
+const initialState = {selectedId: '', investments: []}
 
 // Reducer //
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_INVESTMENTS:
-      return action.investments
+      return {...state, investments: action.investments}
+    case SELECTED_IDS:
+      return {...state, selectedId: action.selected}
     default:
       return state
   }

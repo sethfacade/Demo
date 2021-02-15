@@ -1,56 +1,67 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {fetchCashFlow} from '../store/cashFlow'
-import {fetchInvestments} from '../store/investment'
-import {fetchAllClients} from '../store/client'
-import {fetchAllFunds} from '../store/fund'
+// import React from 'react'
+// import {connect} from 'react-redux'
+// import {fetchCashFlow} from '../store/cashFlow'
 
-class UpdateCashFlow extends React.Component {
-  constructor() {
-    super()
-    this.handleClientNameChange = this.handleClientNameChange.bind(this)
-  }
-  componentDidMount() {
-    this.props.getClients()
-  }
-  handleClientNameChange() {}
-  render() {
-    const clients = this.props.client || []
+// class UpdateCashFlows extends React.Component {
+//   constructor() {
+//     super()
+//     this.state = {
+//       currentValue: '',
+//       updatedValue: '',
+//       date: '',
+//       value: '',
+//     }
+//   }
 
-    return (
-      <div>
-        <label htmlFor="clientName">Choose Client: </label>
-        <select onChange={this.handleClientNameChange}>
-          <option value="select">Select Client</option>
-          {clients.map(client => {
-            return (
-              <option key={client.id} value={client.id}>
-                {client.name}
-              </option>
-            )
-          })}
-        </select>
-      </div>
-    )
-  }
-}
+//   componentDidMount() {
+//     this.setState({currentValue: this.props.cashFlows})
+//   }
+//   render() {
+//     //console.log(this.props.investments.investments.amount)
+//     return (
+//       <div>
+//         <form onSubmit="{}">
+//           <label htmlFor="currentValue">Current Value</label>
+//           <input
+//             name="currentValue"
+//             type="number"
+//             value={this.state.currentValue}
+//             onChange="{this.handleChange}"
+//           />
+//         </form>
+//       </div>
+//     )
+//   }
+// }
+// const mapStateToProps = (state) => {
+//   return {
+//     cashFlows: state.cashFlows,
+//     investments: state.investments,
+//     client: state.client,
+//     funds: state.funds.allFunds,
+//     filteredFunds: state.funds.filteredFunds,
+//   }
+// }
 
-const mapStateToProps = state => {
-  return {
-    cashFlows: state.cashFlows,
-    investments: state.investments,
-    client: state.client
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     // getFunds: () => dispatch(fetchAllFunds()),
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getFunds: () => dispatch(fetchAllFunds()),
-    getClients: () => dispatch(fetchAllClients()),
-    getInvestment: (clientId, fundId) =>
-      dispatch(fetchInvestments(clientId, fundId)),
-    getCashFlow: investmentId => dispatch(fetchCashFlow(investmentId))
-  }
-}
+//     // getFilteredFunds: (filteredFunds) =>
+//     //   dispatch(getFilteredFunds(filteredFunds)),
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateCashFlow)
+//     // getUniqueFundTypes: (uniqueTypes) =>
+//     //   dispatch(getUniqueFundTypes(uniqueTypes)),
+
+//     // getClients: () => dispatch(fetchAllClients()),
+
+//     // getInvestment: (clientId, fundId) =>
+//     //   dispatch(fetchInvestments(clientId, fundId)),
+
+//     getCashFlow: (investmentId) => dispatch(fetchCashFlow(investmentId)),
+
+//     // getSelectedIds: (fundId) => dispatch(getSelectedIds(fundId)),
+//   }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(UpdateCashFlows)

@@ -25,13 +25,13 @@ async function seed() {
     Client.create({
       id: 2,
       name: 'Client 2',
-      permission: 'Yes',
+      permission: 'VC, RE',
       description: 'This is client 2'
     }),
     Client.create({
       id: 3,
       name: 'Client 3',
-      permission: 'Yes',
+      permission: 'PL, HF',
       description: 'This is client 3'
     })
   ])
