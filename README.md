@@ -2,6 +2,8 @@
 
 After installing dependencies through npm i
 
+create database for canoe_demo
+
 Run the the code with npm run start-dev
 
 # Things to note
