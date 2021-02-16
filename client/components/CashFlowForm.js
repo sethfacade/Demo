@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCashFlow, updateCashThunk} from '../store/cashFlow'
-// import {fetchInvestments} from '../store/investment'
 import {fetchAllClients} from '../store/client'
 import {fetchAllFunds} from '../store/fund'
 import {
@@ -25,6 +24,8 @@ class CashFlowForm extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.calculate = this.calculate.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.cancel = this.cancel.bind(this)
+    this.resetCurrentValue = this.resetCurrentValue.bind(this)
   }
 
   async handleInvestmentNameChange(e) {
@@ -45,7 +46,7 @@ class CashFlowForm extends React.Component {
       }
 
       const cashFlow = this.props.cashFlow.return / 100
-      currentValue = valWithoutReturn * (1 + cashFlow / 100)
+      currentValue = (valWithoutReturn * (1 + cashFlow / 100)).toFixed(2)
       this.setState({currentValue})
     }
   }
@@ -60,7 +61,7 @@ class CashFlowForm extends React.Component {
     const cashFlowId = this.props.cashFlow.id
     const updatedValue = this.state.currentValue * (1 + this.state.value / 100)
     const difference = updatedValue - this.state.investmentAmount
-    const newValue = difference / this.state.investmentAmount * 100
+    const newValue = (difference / this.state.investmentAmount * 100).toFixed(2)
     // IF NO DATE IS ENTERED, IT WILL GO DEFAULT VALUE TO TODAY'S DATE //
     let update
     if (this.state.date) {
@@ -81,8 +82,18 @@ class CashFlowForm extends React.Component {
   }
 
   calculate() {
-    let updatedValue = this.state.currentValue * (1 + this.state.value / 100)
+    let updatedValue = (
+      this.state.currentValue *
+      (1 + this.state.value / 100)
+    ).toFixed(2)
     this.setState({updatedValue})
+  }
+  cancel() {
+    this.setState({date: '', value: '', updatedValue: ''})
+  }
+
+  resetCurrentValue() {
+    this.setState({currentValue: '', updatedValue: ''})
   }
 
   componentDidMount() {
@@ -94,13 +105,13 @@ class CashFlowForm extends React.Component {
     return (
       <div>
         <div className="parent-container">
-          <ClientNameDropDown />
-          <InvestmentTypeDropDown />
+          <ClientNameDropDown reset={this.resetCurrentValue} />
+          <InvestmentTypeDropDown reset={this.resetCurrentValue} />
           <InvestmentNameDropDown
             handleInvestmentNameChange={this.handleInvestmentNameChange}
           />
         </div>
-        <div className="form-container">
+        <div className="col-container">
           <UpdateForm
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
@@ -109,6 +120,7 @@ class CashFlowForm extends React.Component {
             date={this.state.date}
             calculate={this.calculate}
             value={this.state.value}
+            cancel={this.cancel}
           />
         </div>
       </div>
@@ -120,9 +132,6 @@ const mapStateToProps = state => {
   return {
     cashFlow: state.cashFlow,
     investments: state.investments
-    // client: state.client,
-    // funds: state.funds.allFunds,
-    // filteredFunds: state.funds.filteredFunds,
   }
 }
 
@@ -130,13 +139,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getFunds: () => dispatch(fetchAllFunds()),
 
-    // getFilteredFunds: (filteredFunds) =>
-    //   dispatch(getFilteredFunds(filteredFunds)),
-
     getClients: () => dispatch(fetchAllClients()),
 
-    // getInvestment: (clientId, fundId) =>
-    //   dispatch(fetchInvestments(clientId, fundId)),
     updateCashThunk: updatedInfo => dispatch(updateCashThunk(updatedInfo)),
     getCashFlow: investmentId => dispatch(fetchCashFlow(investmentId))
   }

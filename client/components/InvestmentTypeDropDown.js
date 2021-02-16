@@ -7,7 +7,9 @@ function InvestmentTypeDropDown(props) {
   const currentClientId = props.investments.selectedId
 
   const handleInvestmentTypeChange = e => {
+    props.reset()
     const fundId = e.target.value
+    console.log(currentClientId, fundId)
     if (fundId !== 'select') {
       return props.getInvestment(currentClientId, fundId)
     }
@@ -39,17 +41,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // getFunds: () => dispatch(fetchAllFunds()),
-
-    // getFilteredFunds: filteredFunds =>
-    //   dispatch(getFilteredFunds(filteredFunds)),
-
-    // getClients: () => dispatch(fetchAllClients()),
-
     getInvestment: (clientId, fundId) =>
       dispatch(fetchInvestments(clientId, fundId)),
-
-    // getCashFlow: (investmentId) => dispatch(fetchCashFlow(investmentId)),
 
     getSelectedIds: fundId => dispatch(getSelectedIds(fundId))
   }

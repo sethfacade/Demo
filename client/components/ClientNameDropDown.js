@@ -2,17 +2,19 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchAllClients} from '../store/client'
 import {fetchAllFunds, getFilteredFunds} from '../store/fund'
-import {getSelectedIds} from '../store/investment'
+import {getSelectedIds, getInvestments} from '../store/investment'
 
 function ClientNameDropDown(props) {
   const clients = props.client
 
   const handleClientNameChange = async e => {
-    const clientId = e.target.value
+    props.reset()
+    let clientId = e.target.value
     const funds = props.funds
     const access = {}
     let permission = ''
     await props.getFilteredFunds([])
+    await props.getInvestments([])
 
     // IF AT SELECT , CANNOT SEE ANY INVESTMENTS //
     if (clientId === 'select') {
@@ -70,7 +72,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getFunds: () => dispatch(fetchAllFunds()),
-
+    getInvestments: investments => dispatch(getInvestments(investments)),
     getFilteredFunds: filteredFunds =>
       dispatch(getFilteredFunds(filteredFunds)),
 

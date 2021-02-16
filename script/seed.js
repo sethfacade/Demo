@@ -11,9 +11,9 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'canoe@email.com', password: '123'})
-  ])
+  // const users = await Promise.all([
+  //   User.create({email: 'canoe@email.com', password: '123'}),
+  // ])
 
   const clients = await Promise.all([
     Client.create({
@@ -75,7 +75,7 @@ async function seed() {
     Fund.create({
       id: 6,
       name: 'MNO',
-      type: 'HF',
+      type: 'QX',
       inceptionDate: '2020-02-01',
       description: 'This is the MNO HF fund'
     }),
@@ -96,15 +96,43 @@ async function seed() {
       fundId: 1,
       date: '2020-05-01',
       amount: 1000000
+    }),
+    Investment.create({
+      id: 456,
+      name: 'investment def',
+      clientId: 2,
+      fundId: 2,
+      date: '2020-05-01',
+      amount: 2000000
+    }),
+    Investment.create({
+      id: 789,
+      name: 'investment ghi',
+      clientId: 3,
+      fundId: 1,
+      date: '2020-05-01',
+      amount: 3000000
     })
   ])
 
   const cashFlow = await Promise.all([
     CashFlow.create({
-      id: 456,
+      id: 1,
       investmentId: 123,
       date: '2020-06-01',
       return: 5
+    }),
+    CashFlow.create({
+      id: 2,
+      investmentId: 456,
+      date: '2020-06-01',
+      return: 10
+    }),
+    CashFlow.create({
+      id: 3,
+      investmentId: 789,
+      date: '2020-06-01',
+      return: 15
     })
   ])
 
@@ -112,7 +140,6 @@ async function seed() {
   console.log(`seeded ${funds.length} funds`)
   console.log(`seeded ${investments.length} investments`)
   console.log(`seeded ${cashFlow.length} cash flows`)
-  console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 

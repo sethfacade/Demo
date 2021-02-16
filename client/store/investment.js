@@ -6,7 +6,7 @@ const GET_INVESTMENTS = 'GET_INVESTMENTS'
 const SELECTED_IDS = 'SELECTED_IDS'
 
 // ACTION CREATORS //
-const getInvestments = investments => ({
+export const getInvestments = investments => ({
   type: GET_INVESTMENTS,
   investments
 })

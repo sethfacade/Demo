@@ -22,9 +22,8 @@ class UserHome extends React.Component {
   render() {
     const clients = this.props.clients || []
     return (
-      <div>
-        <h3>Welcome</h3>
-        <h3>All Clients</h3>
+      <div className="home-page">
+        <h2>All Clients</h2>
         {clients.map(client => {
           return (
             <div key={client.id}>
