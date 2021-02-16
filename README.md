@@ -2,9 +2,9 @@
 
 After installing dependencies through npm i
 
-create database for canoe_demo
+create database for canoe_demo and run npm run seed to sync the database;
 
-Run the the code with npm run start-dev
+Run the the code with npm run start-dev to see the application.
 
 # Things to note
 
