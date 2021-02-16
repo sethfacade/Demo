@@ -9,7 +9,7 @@ function InvestmentTypeDropDown(props) {
   const handleInvestmentTypeChange = e => {
     props.reset()
     const fundId = e.target.value
-    console.log(currentClientId, fundId)
+
     if (fundId !== 'select') {
       return props.getInvestment(currentClientId, fundId)
     }

@@ -112,6 +112,14 @@ async function seed() {
       fundId: 1,
       date: '2020-05-01',
       amount: 3000000
+    }),
+    Investment.create({
+      id: 321,
+      name: 'investment jkl',
+      clientId: 1,
+      fundId: 1,
+      date: '2020-05-01',
+      amount: 4000000
     })
   ])
 
@@ -133,6 +141,12 @@ async function seed() {
       investmentId: 789,
       date: '2020-06-01',
       return: 15
+    }),
+    CashFlow.create({
+      id: 4,
+      investmentId: 321,
+      date: '2020-06-01',
+      return: 5
     })
   ])
 
