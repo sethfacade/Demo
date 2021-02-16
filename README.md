@@ -8,4 +8,6 @@ Run the the code with npm run start-dev
 
 Database integer numbers are muliplied to 100 to account for Javascript floating point accuracy in numbers, on the frontend the numbers are changed back by dividng 100
 
-Some of the files are from boilerplate such as user.js which is more for login/logout, I used the sessions to store which client is being clicked on for the login
+Some of the files are from boilerplate such as sockets etc. which weren't used
+
+Spent alot of time on docker, was able to connect the server but still trying to get docker through with some advice from others as I am still new to this.

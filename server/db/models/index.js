@@ -1,4 +1,3 @@
-const User = require('./user')
 const Client = require('./client')
 const Fund = require('./fund')
 const Investment = require('./investment')
@@ -14,7 +13,6 @@ Investment.hasOne(CashFlow)
 CashFlow.belongsTo(Investment)
 
 module.exports = {
-  User,
   Client,
   Fund,
   Investment,

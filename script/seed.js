@@ -1,19 +1,9 @@
 const db = require('../server/db')
-const {
-  User,
-  Client,
-  Fund,
-  Investment,
-  CashFlow
-} = require('../server/db/models')
+const {Client, Fund, Investment, CashFlow} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
-
-  // const users = await Promise.all([
-  //   User.create({email: 'canoe@email.com', password: '123'}),
-  // ])
 
   const clients = await Promise.all([
     Client.create({

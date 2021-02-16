@@ -7,7 +7,7 @@ const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const db = require('./db')
 const sessionStore = new SequelizeStore({db})
-const PORT = process.env.PORT || 1337
+const PORT = 8080
 const app = express()
 const socketio = require('socket.io')
 module.exports = app
@@ -71,15 +71,15 @@ const createApp = () => {
   app.use(express.static(path.join(__dirname, '..', 'public')))
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
-  // app.use((req, res, next) => {
-  //   if (path.extname(req.path).length) {
-  //     const err = new Error('Not found')
-  //     err.status = 404
-  //     next(err)
-  //   } else {
-  //     next()
-  //   }
-  // })
+  app.use((req, res, next) => {
+    if (path.extname(req.path).length) {
+      const err = new Error('Not found')
+      err.status = 404
+      next(err)
+    } else {
+      next()
+    }
+  })
 
   // sends index.html
   app.use('*', (req, res) => {
@@ -105,11 +105,11 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-const syncDb = () => db.sync()
+// const syncDb = () => db.sync()
 
 async function bootApp() {
   await sessionStore.sync()
-  await syncDb()
+  // await syncDb()
   await createApp()
   await startListening()
 }
